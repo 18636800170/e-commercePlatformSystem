@@ -1,0 +1,98 @@
+{% extends 'main/main.html' %}
+{% load static from staticfiles %}
+
+{% block mainResource %}
+    <link rel="stylesheet" type="text/css" href="{% static 'card/css/card.css' %}"/>
+    <script type="text/javascript" charset="utf-8" src="{% static 'card/js/card.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <div id="cart">
+        <h3><b>购物车</b></h3>
+
+        <section class="full">
+            <section>
+                <ul>
+                    <li>
+                        <div class="clear">
+                            <p class="infoJustify">收货人<b></b></p>
+                            <p>:<span>Rock</span></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="clear">
+                            <p class="infoJustify">电话<b></b></p>
+                            <p>:<span>110</span><a class="change">修改></a></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="clear"><p class="infoJustify">收货地址<b></b></p>
+                            <p>:<span>北京市海淀区天丰利商城</span></p>
+                        </div>
+                    </li>
+                </ul>
+
+
+                <section class="bill">
+                    <p>闪送超市</p>
+                    <p>¥0起送,22:00前满¥30免运费</p>
+                    <a>凑单专区</a>
+                </section>
+
+
+                <section class="delivery">
+                    <span>收货时间</span> <span>一小时送达</span> <a>可预订></a>
+                </section>
+                <section class="delivery">
+                    <span>收货备注</span> <input type="text" placeholder="可输入100字以内特殊要求内容"/>
+                </section>
+
+
+                <menu>
+                    <ul>
+                        {% for item in card %}
+                            <li id="{{ item.c_good.id }}li" class="menuList">
+                                <div class="confirm">
+                                    <span class="ischose" cardid="{{ item.id }}" isselect="{{ item.c_isselect }}">
+                                        {% ifequal True item.c_isselect %}
+                                            <span id="{{ item.c_good.productid }}a" style="display: block;">
+                                            √
+                                            </span>
+                                        {% else %}
+
+                                            <span id="{{ item.c_good.productid }}a" style="display: none;">
+                                            √
+                                            </span>
+                                        {% endifequal %}
+                                    </span>
+                                </div>
+                                <a href="#">
+                                    <img src="{{ item.c_good.productimg }}"/>
+                                    <p>{{ item.c_good.productname }}</p>
+                                    <span id="{{ item.c_good.productid }}price"
+                                          class="{{ productprice }}">{{ item.c_good.productprice }}</span>
+                                </a>
+                                <section>
+                                    <button class="subShopping" cardid="{{ item.id }}">-</button>
+                                    <span id="{{ item.c_good.productid }}">{{ item.c_goodnumber }}</span>
+                                    <button class="addShopping" cardid="{{ item.id }}">+</button>
+                                </section>
+                            </li>
+                        {% endfor %}
+
+                        <li class="payTheBill">
+                            <div class="confirm"><span><span>
+                            {% if trueFlag %}
+                                √
+                            {% endif %}
+                        </span></span></div>
+                            <p><span>全选</span><span>共计:</span><span>总价</span></p>
+                            <a id="ok">选好了</a>
+                        </li>
+                    </ul>
+                </menu>
+            </section>
+        </section>
+    </div>
+
+{% endblock %}

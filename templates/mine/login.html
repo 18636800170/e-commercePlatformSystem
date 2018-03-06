@@ -1,0 +1,21 @@
+{% extends "base/base.html" %}
+{% load staticfiles %}
+{% block styleAndJs %}
+    <script type="text/javascript" src="{% static 'base/js/md5.js' %}"></script>
+    <script type="text/javascript" src="{% static 'mine/js/login.js' %}"></script>
+{% endblock %}
+{% block body %}
+    <form onsubmit="return check()" action="{% url 'app:dologin' %}" method="post">
+        {% csrf_token %}
+        <span>用户名</span>
+        <input type="text" id="username" name="username" placeholder="请输入用户名">
+        <span></span>
+        <br>
+        <span>密码</span>
+        <input type="password" id="password" name="password" placeholder="请输入名密码">
+        <span></span>
+        <br>
+        <input type="submit" value="login">
+
+    </form>
+{% endblock %}
